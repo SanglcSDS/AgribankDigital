@@ -1,0 +1,8 @@
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\bin\x86\Release\AgribankDigital.exe.config
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\bin\x86\Release\AgribankDigital.exe
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\bin\x86\Release\AgribankDigital.pdb
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.ProjectInstaller.resources
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.csproj.GenerateResource.cache
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.csproj.CoreCompileInputs.cache
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.exe
+C:\Users\lecon\source\repos\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.pdb

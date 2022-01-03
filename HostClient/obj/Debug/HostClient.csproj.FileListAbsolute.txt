@@ -1,0 +1,9 @@
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\bin\Debug\HostClient.exe.config
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\bin\Debug\HostClient.exe
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\bin\Debug\HostClient.pdb
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\obj\Debug\HostClient.csproj.AssemblyReference.cache
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\obj\Debug\HostClient.ProjectInstaller.resources
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\obj\Debug\HostClient.csproj.GenerateResource.cache
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\obj\Debug\HostClient.csproj.CoreCompileInputs.cache
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\obj\Debug\HostClient.exe
+C:\Users\lecon\source\repos\AgribankDigital\HostClient\obj\Debug\HostClient.pdb
