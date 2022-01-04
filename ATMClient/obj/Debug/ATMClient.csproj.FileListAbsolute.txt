@@ -7,3 +7,12 @@ C:\Users\lecon\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.csproj
 C:\Users\lecon\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.csproj.CoreCompileInputs.cache
 C:\Users\lecon\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.exe
 C:\Users\lecon\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.pdb
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\bin\Debug\ATMClient.exe.config
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\bin\Debug\ATMClient.exe
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\bin\Debug\ATMClient.pdb
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.csproj.AssemblyReference.cache
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.ProjectInstaller.resources
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.csproj.GenerateResource.cache
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.csproj.CoreCompileInputs.cache
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.exe
+C:\Users\84936\source\repos\AgribankDigital\ATMClient\obj\Debug\ATMClient.pdb

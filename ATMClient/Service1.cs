@@ -58,7 +58,7 @@ namespace ATMClient
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(MESSAGE + " " + DateTime.Now);
                 NetworkStream stream = client.GetStream();
                 stream.Write(data, 0, data.Length);
-                data = new Byte[256];
+                data = new Byte[20480];
                 String responseData = String.Empty;
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);

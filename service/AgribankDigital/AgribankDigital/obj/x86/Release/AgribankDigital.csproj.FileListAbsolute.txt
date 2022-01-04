@@ -1,0 +1,8 @@
+E:\ASP\service\AgribankDigital\AgribankDigital\bin\x86\Release\AgribankDigital.exe.config
+E:\ASP\service\AgribankDigital\AgribankDigital\bin\x86\Release\AgribankDigital.exe
+E:\ASP\service\AgribankDigital\AgribankDigital\bin\x86\Release\AgribankDigital.pdb
+E:\ASP\service\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.ProjectInstaller.resources
+E:\ASP\service\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.csproj.GenerateResource.cache
+E:\ASP\service\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.csproj.CoreCompileInputs.cache
+E:\ASP\service\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.exe
+E:\ASP\service\AgribankDigital\AgribankDigital\obj\x86\Release\AgribankDigital.pdb

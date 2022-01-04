@@ -57,7 +57,7 @@ namespace AgribankDigital
         {
 
 
-            selfListener = new TcpListener(IPAddress.Any, Int32.Parse(PORT_FORWARD));
+            selfListener = new TcpListener(Int32.Parse(PORT_FORWARD));
             selfListener.Start();
 
             Byte[] bytes1 = new Byte[256];

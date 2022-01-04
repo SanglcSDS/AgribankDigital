@@ -1,0 +1,8 @@
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\bin\Debug\AgribankDigitalV1.exe.config
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\bin\Debug\AgribankDigitalV1.exe
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\bin\Debug\AgribankDigitalV1.pdb
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.ProjectInstaller.resources
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.csproj.GenerateResource.cache
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.csproj.CoreCompileInputs.cache
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.exe
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.pdb
