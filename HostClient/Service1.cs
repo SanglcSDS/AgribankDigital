@@ -31,37 +31,30 @@ namespace HostClient
         }
         protected override void OnStart(string[] args)
         {
-            // Int32 port1 = 1234;
             IPAddress ipAddress = IPAddress.Parse(IP_HOST);
             hostlistener = new TcpListener(ipAddress, Int32.Parse(PORT_HOST));
             hostlistener.Start();
 
-            Byte[] bytes1 = new Byte[256];
-            String data1 = null;
+            Socket client1 = hostlistener.AcceptSocket();
 
-            while (true)
+            Byte[] data = new Byte[1024];
+            //if (client1.Receive(data) > 0) {
+            //    Console.WriteLine(System.Text.Encoding.ASCII.GetString(data));
+            //}
+            data = System.Text.Encoding.ASCII.GetBytes(MESSAGE);
+            System.Timers.Timer timer = new System.Timers.Timer();
+            //  timer.Interval = (int)TimeSpan.FromMinutes(Int32.Parse(DELAY_MINUTE)).TotalMilliseconds;
+            timer.Interval = 10000;
+            timer.Elapsed += timer_Elapsed;
+            timer.Start();
+
+            void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
             {
-                TcpClient client1 = hostlistener.AcceptTcpClient();
-                data1 = null;
-                NetworkStream stream1 = client1.GetStream();
-                int i;
-                while ((i = stream1.Read(bytes1, 0, bytes1.Length)) != 0)
-                {
-                    data1 = System.Text.Encoding.ASCII.GetString(bytes1, 0, i);
-                    Logger.Log("Received: {0}" + data1);
+                Console.WriteLine("===> " + DateTime.Now);
 
-
-                    byte[] msg = System.Text.Encoding.ASCII.GetBytes(MESSAGE);
-
-
-                    stream1.Write(msg, 0, msg.Length);
-                }
-
-                client1.Close();
+                client1.Send(data);
             }
-
         }
-
 
         protected override void OnStop()
         {

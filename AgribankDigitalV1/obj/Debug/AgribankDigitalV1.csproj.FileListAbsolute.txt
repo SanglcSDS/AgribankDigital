@@ -6,3 +6,4 @@ C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\Agribank
 C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.csproj.CoreCompileInputs.cache
 C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.exe
 C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.pdb
+C:\Users\84936\source\repos\AgribankDigital\AgribankDigitalV1\obj\Debug\AgribankDigitalV1.csproj.AssemblyReference.cache
