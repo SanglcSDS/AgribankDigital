@@ -5,26 +5,33 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace AgribankDigital
 {
     public partial class Service1 : ServiceBase
     {
+
         private static string HOST_CLIENT = ConfigurationManager.AppSettings["ip_host"];
-        private static string PORT_FORWARD = ConfigurationManager.AppSettings["port_listen"];
-        private static string PORT_CLIENT = ConfigurationManager.AppSettings["port_host"];
-        private static string BYTE = ConfigurationManager.AppSettings["byte"];
+        private static int PORT_FORWARD = Int32.Parse(ConfigurationManager.AppSettings["port_listen"]);
+        private static int PORT_CLIENT = Int32.Parse(ConfigurationManager.AppSettings["port_host"]);
+
         Thread listenerThread;
-        TcpListener selfListener;
+
+        TcpListener listener = null;
+        Socket socketATM = null;
+        Socket socketHost = null;
+
         public Service1()
         {
             InitializeComponent();
         }
+
         public void OnDebug()
         {
             OnStart(null);
@@ -39,72 +46,125 @@ namespace AgribankDigital
 
         }
 
+
         protected void ListenerMethod()
         {
-
-            selfListener = new TcpListener(Int32.Parse(PORT_FORWARD));
-            selfListener.Start();
-
-            Byte[] bytes1 = new Byte[Int32.Parse(BYTE)];
-            String data = null;
-            while (true)
+            try
             {
+                Logger.Log("Service is started");
 
-                try
+                listener = new TcpListener(IPAddress.Any, PORT_FORWARD);
+
+                listener.Start();
+
+                Logger.Log("Listening connect from ATM ...");
+
+                socketATM = listener.AcceptSocket();
+
+                Logger.Log("ATM connected: " + socketATM.Connected);
+
+                //Tao ket noi toi Host
+                Logger.Log("Connecting to Host ...");
+
+                TcpClient tcpClient = new TcpClient(HOST_CLIENT, PORT_CLIENT);
+                socketHost = tcpClient.Client;
+
+                Logger.Log("Connected to Host : " + socketHost.Connected);
+
+                if (socketATM.Connected && socketHost.Connected)
                 {
-                    TcpClient atmClient = selfListener.AcceptTcpClient();
-                    TcpClient hostClient = new TcpClient(HOST_CLIENT, Int32.Parse(PORT_CLIENT));
-
-                    data = null;
-
-                    NetworkStream atmStream = atmClient.GetStream();
-                    NetworkStream hostStream = hostClient.GetStream();
-
-                    int i;
-                    while ((i = atmStream.Read(bytes1, 0, bytes1.Length)) != 0)
-                    {
-                        data = System.Text.Encoding.ASCII.GetString(bytes1, 0, i);
-                        Logger.Log(DateTime.Now.ToString());
-                        Logger.Log("ATM > " + data);
-                        byte[] atmMsg = System.Text.Encoding.ASCII.GetBytes(data);
-
-                        // send to  host
-                        hostStream.Write(atmMsg, 0, atmMsg.Length);
-                        Logger.Log(DateTime.Now.ToString());
-                        Logger.Log("HOST < " + data);
-
-                        Byte[] hostData = new Byte[Int32.Parse(BYTE)];
-
-                        // host response
-                        String responseData = String.Empty;
-                        Int32 bytes = hostStream.Read(hostData, 0, hostData.Length);
-                        responseData = System.Text.Encoding.ASCII.GetString(hostData, 0, bytes);
-                        Logger.Log(DateTime.Now.ToString());
-                        Logger.Log("HOST > " + responseData);
-
-
-                        byte[] hostMsg = System.Text.Encoding.ASCII.GetBytes(responseData);
-
-                        Logger.Log(DateTime.Now.ToString());
-                        Logger.Log("ATM < " + responseData);
-                        atmStream.Write(hostMsg, 0, hostMsg.Length);
-                    }
-
-                    hostStream.Close();
-                    hostClient.Close();
-                    atmClient.Close();
+                    //Gui/nhan data tu ATM - Host
+                    ThreadPool.QueueUserWorkItem(ReceiveDataFromATM, null);
+                    ThreadPool.QueueUserWorkItem(ReceiveDataFromHost, null);
                 }
-                catch (SocketException e)
-                {
-                    Logger.Log("SocketException: {0}"+ e);
-                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error: " + ex.Message);
             }
         }
 
+        byte[] ReceiveAll(Socket socket)
+        {
+            var buffer = new List<byte>();
+
+            while (socket.Available > 0)
+            {
+                var currByte = new Byte[1];
+                var byteCounter = socket.Receive(currByte, currByte.Length, SocketFlags.None);
+
+                if (byteCounter.Equals(1))
+                {
+                    buffer.Add(currByte[0]);
+                }
+            }
+
+            return buffer.ToArray();
+        }
+
+        void ReceiveDataFromATM(object state)
+        {
+            try
+            {
+                while (true)
+                {
+                    Byte[] data = ReceiveAll(socketATM);
+                    if (data.Length > 0)
+                    {
+                        Logger.Log(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss fff") + " ATM to FW:");
+                        Logger.Log("> " + System.Text.Encoding.ASCII.GetString(data));
+
+                        socketHost.Send(data);
+
+                        Logger.Log(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss fff") + " FW to Host:");
+                        Logger.Log("> " + System.Text.Encoding.ASCII.GetString(data));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error: " + ex.Message);
+            }
+        }
+
+        void ReceiveDataFromHost(object state)
+        {
+            try
+            {
+                while (true)
+                {
+                    Byte[] data = ReceiveAll(socketHost);
+
+                    if (data.Length > 0)
+                    {
+                        Logger.Log(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss fff") + " Host to FW:");
+                        Logger.Log("< " + System.Text.Encoding.ASCII.GetString(data));
+
+                        socketATM.Send(data);
+
+                        Logger.Log(Environment.NewLine + DateTime.Now.ToString("HH:mm:ss fff") + " FW to ATM:");
+                        Logger.Log("< " + System.Text.Encoding.ASCII.GetString(data));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("Error: " + ex.Message);
+            }
+        }
 
         protected override void OnStop()
         {
-            selfListener.Stop();
+            if (socketATM != null)
+                socketATM.Close();
+
+            if (socketHost != null)
+                socketHost.Close();
+
+            if (listener != null)
+                listener.Stop();
+
+            listenerThread.Abort();
         }
     }
 }
