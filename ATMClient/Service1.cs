@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.ServiceProcess;
@@ -55,10 +56,13 @@ namespace ATMClient
             try
             {
                 TcpClient client = new TcpClient(IP_CLIENT, Int32.Parse(PORT_CLIENT));
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(MESSAGE + " " + DateTime.Now);
+
+                string str = File.ReadAllText("E:\\test.txt");
+
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(str);
                 NetworkStream stream = client.GetStream();
                 stream.Write(data, 0, data.Length);
-                data = new Byte[1024];
+                data = new Byte[20024];
                 String responseData = String.Empty;
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
