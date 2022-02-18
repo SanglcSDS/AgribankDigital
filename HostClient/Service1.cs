@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.ServiceProcess;
 using System.Text;
+using System.IO.Ports;
 using System.Threading.Tasks;
 
 namespace HostClient
@@ -20,6 +21,7 @@ namespace HostClient
         private static string PORT_HOST = ConfigurationManager.AppSettings["porthost"];
         private static string MESSAGE = ConfigurationManager.AppSettings["message"];
         TcpListener hostlistener;
+        SerialPort port;
         public Service1()
         {
             InitializeComponent();
@@ -31,12 +33,11 @@ namespace HostClient
         }
         protected override void OnStart(string[] args)
         {
+            
             IPAddress ipAddress = IPAddress.Parse(IP_HOST);
             hostlistener = new TcpListener(ipAddress, Int32.Parse(PORT_HOST));
             hostlistener.Start();
-
             Socket client1 = hostlistener.AcceptSocket();
-
             Byte[] data = new Byte[1024];
             //if (client1.Receive(data) > 0) {
             //    Console.WriteLine(System.Text.Encoding.ASCII.GetString(data));
@@ -52,12 +53,30 @@ namespace HostClient
             {
                 Console.WriteLine("===> " + DateTime.Now);
 
-                client1.Send(data);
+                try
+                {
+                    client1.Send(data);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    client1.Close();
+                    hostlistener.Stop();
+                    hostlistener = new TcpListener(ipAddress, Int32.Parse(PORT_HOST));
+                    hostlistener.Start();
+
+                    client1 = hostlistener.AcceptSocket();
+                    client1.Send(data);
+                }
             }
+            byte[] dataReceive = new Byte[1024];
+            client1.Receive(dataReceive);
+            Console.WriteLine(System.Text.Encoding.ASCII.GetString(dataReceive));
         }
 
         protected override void OnStop()
         {
+            hostlistener.Stop();
         }
     }
 }

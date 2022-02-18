@@ -1,0 +1,7 @@
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\obj\Debug\CheckConnection.csproj.AssemblyReference.cache
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\obj\Debug\CheckConnection.csproj.CoreCompileInputs.cache
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\bin\Debug\CheckConnection.exe.config
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\bin\Debug\CheckConnection.exe
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\bin\Debug\CheckConnection.pdb
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\obj\Debug\CheckConnection.exe
+C:\Users\84936\source\repos\AgribankDigital\CheckConnection\obj\Debug\CheckConnection.pdb
